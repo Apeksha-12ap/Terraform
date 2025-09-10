@@ -31,8 +31,6 @@ pipeline{
             {
                 sh 'terraform fmt -no-color'
             }
-                
-            
         }
 
         stage('Terraform Validate')
