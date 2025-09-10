@@ -20,7 +20,7 @@ pipeline{
         {
             steps()
             {
-                sh 'Terraform init -no-color'
+                sh 'terraform init -no-color'
             }
         }
 
@@ -28,7 +28,7 @@ pipeline{
         {
             steps()
             {
-                sh 'Terraform fmt -no-color'
+                sh 'terraform fmt -no-color'
             }
                 
             
@@ -38,7 +38,7 @@ pipeline{
         {
             steps()
             {
-                sh 'Terraform validate -no-color'
+                sh 'terraform validate -no-color'
             }
         }
 
@@ -46,7 +46,7 @@ pipeline{
         {
             steps()
             {
-                sh 'Terraform plan -no-color'
+                sh 'terraform plan -no-color'
             }
         }
 
@@ -54,7 +54,7 @@ pipeline{
         {
             steps()
             {
-                sh 'Terraform apply --auto-approve -no-color'
+                sh 'terraform apply --auto-approve -no-color'
             }
         }
     }
