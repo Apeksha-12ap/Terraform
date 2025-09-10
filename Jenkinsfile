@@ -18,37 +18,44 @@ pipline{
 
         stage('Terraform Initialization')
         {
-            steps(
-                sh 'Terraform init'
-            )
+            steps()
+            {
+                sh 'Terraform init -no-color'
+            }
         }
 
         stage('Terraform Format')
         {
-            steps(
-                sh 'Terraform fmt'
-            )
+            steps()
+            {
+                sh 'Terraform fmt -no-color'
+            }
+                
+            
         }
 
         stage('Terraform Validate')
         {
-            steps(
-                sh 'Terraform validate'
-            )
+            steps()
+            {
+                sh 'Terraform validate -no-color'
+            }
         }
 
         stage('Terraform Plan')
         {
-            steps(
-                sh 'Terraform plan'
-            )
+            steps()
+            {
+                sh 'Terraform plan -no-color'
+            }
         }
 
         stage('Terraform Apply')
         {
-            steps(
-                sh 'Terraform apply --auto-approve'
-            )
+            steps()
+            {
+                sh 'Terraform apply --auto-approve -no-color'
+            }
         }
     }
 }
