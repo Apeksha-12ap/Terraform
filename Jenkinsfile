@@ -16,9 +16,6 @@ pipeline {
         }
 
         stage('Terraform Apply') {
-            when {
-                expression { return params.APPLY == true }
-            }
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'terraform-aws-creds']]) {
                     sh '''
