@@ -10,11 +10,9 @@ terraform {
 provider "aws" {
 
     region = "ap-south-1"
-    profile = "terraform"
-  
 }
 
-resource "aws_instance" "name" {
+resource "aws_instance" "Jenkins_Server" {
     ami = "ami-0637e31a254cf3d2d"
     instance_type = "t2.medium"
     availability_zone = "ap-south-1a"
