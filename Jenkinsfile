@@ -1,59 +1,30 @@
-pipeline{
+pipeline {
     agent any
 
-    environment
-    {
-        AWS_ACCESS_KEY_ID = credentials('AWS_Access_Key_ID')
-        AWS_SECRET_KEY_ID = credentials('AWS_Secret_Access_Key')
-    }
-
-    stages
-    {
-        stage('Git Checkout')
-        {
-            steps()
-            {
-                git branch: 'main', url: 'https://github.com/Apeksha-12ap/Terraform.git'
+    stages {
+        stage('Terraform Init & Plan') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'terraform-aws-creds']]) {
+                    sh '''
+                        terraform init -no-color
+                        terraform fmt -no-color
+                        terraform validate -no-color
+                        terraform plan -no-color
+                    '''
+                }
             }
         }
 
-        stage('Terraform Initialization')
-        {
-            steps()
-            {
-                sh 'terraform init -no-color'
+        stage('Terraform Apply') {
+            when {
+                expression { return params.APPLY == true }
             }
-        }
-
-        stage('Terraform Format')
-        {
-            steps()
-            {
-                sh 'terraform fmt -no-color'
-            }
-        }
-
-        stage('Terraform Validate')
-        {
-            steps()
-            {
-                sh 'terraform validate -no-color'
-            }
-        }
-
-        stage('Terraform Plan')
-        {
-            steps()
-            {
-                sh 'terraform plan -no-color'
-            }
-        }
-
-        stage('Terraform Apply')
-        {
-            steps()
-            {
-                sh 'terraform apply --auto-approve -no-color'
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'terraform-aws-creds']]) {
+                    sh '''
+                        terraform apply -auto-approve -no-color
+                    '''
+                }
             }
         }
     }
