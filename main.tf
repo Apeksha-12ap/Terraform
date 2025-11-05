@@ -24,3 +24,16 @@ resource "aws_instance" "Jenkins_Server" {
   
 }
 
+resource "aws_s3_bucket" "bucket_names" {
+  bucket = "pipeline3958kdjfdk9435"
+
+  versioning {
+    enabled = true
+  }
+
+  tags = {
+    Name        = "Pipeline_Bucket"
+    Environment = "Dev"
+  }
+}
+
